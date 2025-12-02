@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,7 @@
         :root {
             --bg-color: #000000;
             --text-color: #ffffff;
-            --accent-color: #FFD700; /* Gold/Yellow accent like the app */
+            --accent-color: #FFD700;
             --glass-bg: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.2);
         }
@@ -32,9 +33,37 @@
             flex: 1;
         }
 
+        .lang-switcher {
+            text-align: right;
+            margin-bottom: 2rem;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            margin-left: 0.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .lang-btn.active {
+            background: var(--accent-color);
+            color: #000;
+            border-color: var(--accent-color);
+            font-weight: bold;
+        }
+
         header {
             text-align: center;
-            padding: 4rem 0 2rem;
+            padding: 2rem 0 3rem;
         }
 
         h1 {
@@ -107,42 +136,117 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
+        <div class="lang-switcher">
+            <button class="lang-btn active" onclick="setLang('en', this)">English</button>
+            <button class="lang-btn" onclick="setLang('ko', this)">한국어</button>
+            <button class="lang-btn" onclick="setLang('ja', this)">日本語</button>
+        </div>
+
         <header>
             <h1>Teruteru</h1>
-            <div class="subtitle">AI DNA & Image Generator</div>
+            <div class="subtitle" id="app-subtitle">AI DNA & Image Generator</div>
         </header>
 
         <div class="card">
-            <h2>Contact Support</h2>
-            <p>Need help with your account, credits, or have a feature request? We're here to help.</p>
-            <a href="mailto:support@teruteru.app" class="contact-btn">Email Support</a>
+            <h2 id="contact-title">Contact Support</h2>
+            <p id="contact-desc">Need help with your account, credits, or have a feature request? We're here to help.
+            </p>
+            <a href="mailto:iamleelow@gmail.com" class="contact-btn" id="contact-btn">Email Support</a>
         </div>
 
         <div class="card">
-            <h2>Frequently Asked Questions</h2>
-            
+            <h2 id="faq-title">Frequently Asked Questions</h2>
+
             <div class="faq-item">
-                <div class="faq-question">How do I restore my purchases?</div>
-                <div class="faq-answer">Go to the Settings tab and tap on "Restore Purchases". If you're still having trouble, please contact us.</div>
+                <div class="faq-question" id="faq-1-q">How do I restore my purchases?</div>
+                <div class="faq-answer" id="faq-1-a">Go to the Settings tab and tap on "Restore Purchases". If you're
+                    still having trouble, please contact us.</div>
             </div>
 
             <div class="faq-item">
-                <div class="faq-question">How can I delete my account?</div>
-                <div class="faq-answer">You can delete your account and all associated data directly within the app. Go to Settings > Delete Account. This action is permanent.</div>
+                <div class="faq-question" id="faq-2-q">How can I delete my account?</div>
+                <div class="faq-answer" id="faq-2-a">You can delete your account and all associated data directly within
+                    the app. Go to Settings > Delete Account. This action is permanent.</div>
             </div>
 
             <div class="faq-item">
-                <div class="faq-question">Why did my image generation fail?</div>
-                <div class="faq-answer">Generation may fail due to content safety filters or temporary server load. Credits are usually not deducted for failed attempts. If you lost credits, please email us with your user ID.</div>
+                <div class="faq-question" id="faq-3-q">Why did my image generation fail?</div>
+                <div class="faq-answer" id="faq-3-a">Generation may fail due to content safety filters or temporary
+                    server load. Credits are usually not deducted for failed attempts. If you lost credits, please email
+                    us with your user ID.</div>
             </div>
         </div>
     </div>
 
     <footer>
         <p>&copy; 2025 Teruteru. All rights reserved.</p>
-        <p><a href="#">Privacy Policy</a> &bull; <a href="#">Terms of Service</a></p>
     </footer>
+
+    <script>
+        const translations = {
+            en: {
+                subtitle: "AI DNA & Image Generator",
+                contactTitle: "Contact Support",
+                contactDesc: "Need help with your account, credits, or have a feature request? We're here to help.",
+                contactBtn: "Email Support",
+                faqTitle: "Frequently Asked Questions",
+                faq1q: "How do I restore my purchases?",
+                faq1a: "Go to the Settings tab and tap on 'Restore Purchases'. If you're still having trouble, please contact us.",
+                faq2q: "How can I delete my account?",
+                faq2a: "You can delete your account and all associated data directly within the app. Go to Settings > Delete Account. This action is permanent.",
+                faq3q: "Why did my image generation fail?",
+                faq3a: "Generation may fail due to content safety filters or temporary server load. Credits are usually not deducted for failed attempts. If you lost credits, please email us with your user ID."
+            },
+            ko: {
+                subtitle: "AI DNA & 이미지 생성기",
+                contactTitle: "고객 지원",
+                contactDesc: "계정, 크레딧 문제나 기능 요청이 있으신가요? 저희가 도와드리겠습니다.",
+                contactBtn: "이메일 문의하기",
+                faqTitle: "자주 묻는 질문",
+                faq1q: "구매 내역은 어떻게 복구하나요?",
+                faq1a: "설정 탭에서 '구매 복구'를 눌러주세요. 여전히 문제가 있다면 문의해주세요.",
+                faq2q: "계정은 어떻게 삭제하나요?",
+                faq2a: "앱 내 설정 > 계정 삭제 메뉴에서 계정과 모든 데이터를 즉시 삭제할 수 있습니다. 이 작업은 되돌릴 수 없습니다.",
+                faq3q: "이미지 생성이 왜 실패하나요?",
+                faq3a: "안전 필터나 일시적인 서버 부하로 인해 실패할 수 있습니다. 실패 시 크레딧은 차감되지 않습니다. 만약 차감되었다면 사용자 ID와 함께 문의해주세요."
+            },
+            ja: {
+                subtitle: "AI DNA & 画像生成",
+                contactTitle: "サポート",
+                contactDesc: "アカウント、クレジット、機能リクエストなど、お困りのことがあればお問い合わせください。",
+                contactBtn: "メールで問い合わせる",
+                faqTitle: "よくある質問",
+                faq1q: "購入履歴を復元するには？",
+                faq1a: "設定タブの「購入を復元」をタップしてください。それでも解決しない場合はお問い合わせください。",
+                faq2q: "アカウントを削除するには？",
+                faq2a: "アプリ内の設定 > アカウント削除から、アカウントとすべてのデータを削除できます。この操作は取り消せません。",
+                faq3q: "画像生成が失敗するのはなぜですか？",
+                faq3a: "セーフティフィルターや一時的なサーバー負荷により失敗することがあります。失敗した場合、クレジットは通常消費されません。もし消費された場合は、ユーザーIDを添えてご連絡ください。"
+            }
+        };
+
+        function setLang(lang, btn) {
+            const t = translations[lang];
+            document.getElementById('app-subtitle').textContent = t.subtitle;
+            document.getElementById('contact-title').textContent = t.contactTitle;
+            document.getElementById('contact-desc').textContent = t.contactDesc;
+            document.getElementById('contact-btn').textContent = t.contactBtn;
+            document.getElementById('faq-title').textContent = t.faqTitle;
+            document.getElementById('faq-1-q').textContent = t.faq1q;
+            document.getElementById('faq-1-a').textContent = t.faq1a;
+            document.getElementById('faq-2-q').textContent = t.faq2q;
+            document.getElementById('faq-2-a').textContent = t.faq2a;
+            document.getElementById('faq-3-q').textContent = t.faq3q;
+            document.getElementById('faq-3-a').textContent = t.faq3a;
+
+            // Update buttons
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+    </script>
 </body>
+
 </html>
